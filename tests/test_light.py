@@ -528,8 +528,10 @@ def test_issue465():
     assert state.state == "on"
     assert state.attributes == {
         "brightness": 6,
-        "color_mode": ColorMode.HS,
-        "effect": "",
+        "color_mode": ColorMode.COLOR_TEMP,
+        "color_temp": 332,
+        "color_temp_kelvin": 3012,
+        "effect": None,
         "effect_list": [
             "Мягкий белый",
             "Теплый белый",
@@ -539,8 +541,12 @@ def test_issue465():
         ],
         "friendly_name": "Лампа",
         "hs_color": (27.806, 56.57),
+        "max_color_temp_kelvin": 6500,
+        "max_mireds": 500,
+        "min_color_temp_kelvin": 2000,
+        "min_mireds": 153,
         # "rgb_color": (255, 177, 110),
-        "supported_color_modes": [ColorMode.HS],
+        "supported_color_modes": [ColorMode.COLOR_TEMP, ColorMode.HS],
         "supported_features": LightEntityFeature.EFFECT,
         # "xy_color": (0.496, 0.383),
     }
@@ -833,7 +839,9 @@ def test_strip():
     assert state.state == "on"
     assert state.attributes == {
         "brightness": 252,
-        "color_mode": ColorMode.HS,
+        "color_mode": ColorMode.BRIGHTNESS,
+        "color_temp": None,
+        "color_temp_kelvin": None,
         "effect": "Романтика",
         "effect_list": [
             "Мягкий белый",
@@ -871,8 +879,12 @@ def test_strip():
         ],
         "friendly_name": "Лента",
         "hs_color": None,
+        "max_color_temp_kelvin": 6500,
+        "max_mireds": 370,
+        "min_color_temp_kelvin": 2700,
+        "min_mireds": 153,
         "rgb_color": None,
-        "supported_color_modes": [ColorMode.HS],
+        "supported_color_modes": [ColorMode.COLOR_TEMP, ColorMode.HS],
         "supported_features": LightEntityFeature.EFFECT,
         "xy_color": None,
     }

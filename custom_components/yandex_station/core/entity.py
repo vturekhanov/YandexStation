@@ -59,13 +59,17 @@ class YandexEntity(Entity):
                 if value := device_info.get(key):
                     self._attr_device_info[key] = value
 
-        self.internal_init(
-            extract_parameters(device["capabilities"]),
-            extract_parameters(device["properties"]),
-        )
-        self.internal_update(
-            extract_state(device["capabilities"]), extract_state(device["properties"])
-        )
+        try:
+            self.internal_init(
+                extract_parameters(device["capabilities"]),
+                extract_parameters(device["properties"]),
+            )
+            self.internal_update(
+                extract_state(device["capabilities"]),
+                extract_state(device["properties"]),
+            )
+        except Exception as e:
+            _LOGGER.error("Device init failed: %s", repr(e))
 
         self.quasar.subscribe_update(device["id"], self.on_update)
 
@@ -107,6 +111,12 @@ class YandexEntity(Entity):
     async def device_actions(self, **kwargs):
         try:
             await self.quasar.device_actions(self.device, **kwargs)
+        except Exception as e:
+            raise HomeAssistantError(f"Device action failed: {repr(e)}")
+
+    async def device_color(self, **kwargs):
+        try:
+            await self.quasar.device_color(self.device, **kwargs)
         except Exception as e:
             raise HomeAssistantError(f"Device action failed: {repr(e)}")
 

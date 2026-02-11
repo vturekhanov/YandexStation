@@ -436,6 +436,18 @@ class YandexQuasar(Dispatcher):
         device = await self.get_device(device)
         self.dispatch_update(device["id"], device)
 
+    async def device_color(self, device: dict, **kwargs):
+        r = await self.session.post(
+            f"https://iot.quasar.yandex.ru/m/v3/user/custom/group/color/apply",
+            json={"device_ids": [device['id']], **kwargs},
+        )
+        resp = await r.json()
+        assert resp["status"] == "ok", resp
+
+        # update device state
+        device = await self.get_device(device)
+        self.dispatch_update(device["id"], device)
+
     async def update_online_stats(self):
         if not self.online_updated.is_set():
             await self.online_updated.wait()

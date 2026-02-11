@@ -192,7 +192,7 @@ def test_sensor_qingping():
         "device_class": "pm25",
         "friendly_name": "Датчик воздуха уровень частиц PM2.5",
         "state_class": SensorStateClass.MEASUREMENT,
-        "unit_of_measurement": "µg/m³",
+        "unit_of_measurement": "μg/m³",
     }
 
     state = update_ha_state(YandexCustomSensor, device, config=device["properties"][2])
@@ -201,7 +201,7 @@ def test_sensor_qingping():
         "device_class": "pm10",
         "friendly_name": "Датчик воздуха уровень частиц PM10",
         "state_class": SensorStateClass.MEASUREMENT,
-        "unit_of_measurement": "µg/m³",
+        "unit_of_measurement": "μg/m³",
     }
 
     state = update_ha_state(YandexCustomSensor, device, config=device["properties"][3])
